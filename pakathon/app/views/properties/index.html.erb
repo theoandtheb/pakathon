@@ -27,5 +27,28 @@
 </table>
 
 <br>
+<div style='width: 800px;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
 
+<script>
+handler = Gmaps.build('Google');
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  markers = handler.addMarkers([
+    <% @properties.each do |property| %>
+    {
+      "lat": <%= property.lat %>,
+      "lng": <%= property.lng %>,
+
+    
+      "infowindow": '<%= link_to property.title, property %>'
+    },
+    <% end %>
+  ]);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+});
+</script>
 <%= link_to 'New Property', new_property_path %>
+
+

@@ -6,6 +6,7 @@ Rails.application.config.sorcery.submodules = [:remember_me, :reset_password]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
+
   # -- core --
   # What controller action to call for non-authenticated users. You can also
   # override the 'not_authenticated' method of course.
@@ -142,11 +143,13 @@ Rails.application.config.sorcery.configure do |config|
 
   # --- user config ---
   config.user_config do |user|
+      user.reset_password_mailer = UserMailer
+  
     # -- core --
     # specify username attributes, for example: [:username, :email].
     # Default: `[:email]`
     #
-    # user.username_attribute_names =
+    user.username_attribute_names = [:email]
 
 
     # change *virtual* password attribute, the one which is used until an encrypted one is generated.

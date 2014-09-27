@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140927154631) do
+ActiveRecord::Schema.define(version: 20140927205759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20140927154631) do
     t.integer  "user_id"
   end
 
+  create_table "affiliations_properties", id: false, force: true do |t|
+    t.integer "affiliation_id"
+    t.integer "property_id"
+  end
+
+  create_table "affiliations_users", id: false, force: true do |t|
+    t.integer "affiliation_id"
+    t.integer "user_id"
+  end
+
   create_table "properties", force: true do |t|
     t.string   "title"
     t.text     "desctiption"
@@ -33,6 +43,8 @@ ActiveRecord::Schema.define(version: 20140927154631) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "affiliation_id"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   create_table "users", force: true do |t|
@@ -50,6 +62,11 @@ ActiveRecord::Schema.define(version: 20140927154631) do
     t.boolean  "is_offering"
     t.boolean  "is_endorsing"
     t.integer  "nid"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "affiliation_id"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
