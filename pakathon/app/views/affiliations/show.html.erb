@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @affiliation.title %>
+</p>
+
+<p>
+  <strong>Desctiption:</strong>
+  <%= @affiliation.desctiption %>
+</p>
+
+<%= link_to 'Edit', edit_affiliation_path(@affiliation) %> |
+<%= link_to 'Back', affiliations_path %>
