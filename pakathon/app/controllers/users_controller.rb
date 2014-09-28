@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    @properties = Property.all
   end
 
   # GET /users/1
@@ -29,8 +30,13 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to :users, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        if @user.is_asking
+          format.html { redirect_to :properties, notice: 'User was successfully created.' }
+          format.json { render :show, status: :created, location: @user }
+        else
+          format.html { redirect_to :users, notice: 'User was successfully created.' }
+          format.json { render :show, status: :created, location: @user }
+        end
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -70,6 +76,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :is_asking, :is_offering, :is_endorsing, :nid, :first_name, :last_name, :affiliation_id)
+      params.require(:user).permit(:email, :password, :password_confirmation, :is_asking, :is_offering, :is_endorsing, :nid, :first_name, :last_name, :affiliation_id, :institution_id, :campu_id)
     end
 end

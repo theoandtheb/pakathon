@@ -1,21 +1,36 @@
-<h1>Listing users</h1>
+<h1>All Current Listings</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% @properties.each do |property| %>
+      <div class="detbox">
+        <div class="det dettitle"><%= link_to property.title, property %></div>
+        <div class="det"><%= property.desctiption %></div>
+        <br>
+        <div class="det">Rent (Monthly) - PKR<%= property.price %></div>
+<!--         <td><%= link_to 'Edit', edit_property_path(property) %></td> -->
+<!--         <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %> --></div>
+        <br>
     <% end %>
-  </tbody>
-</table>
 
 <br>
+<div class="mapp" style='width: 64%;'>
+  <div id="map" style='width: 100%; height: 800px;'></div>
+</div>
+
+<script>
+handler = Gmaps.build('Google');
+handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  markers = handler.addMarkers([
+    <% @properties.each do |property| %>
+    {
+      "lat": <%= property.latitude %>,
+      "lng": <%= property.longitude %>,
+
+    
+      "infowindow": '<%= link_to property.title, property %>'
+    },
+    <% end %>
+  ]);
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+});
+</script>

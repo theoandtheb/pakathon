@@ -1,44 +1,29 @@
-<h1>Listing properties</h1>
+<h1>Listings Near <%= current_user.institution.name %></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Desctiption</th>
-      <th>Lat</th>
-      <th>Lng</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @properties.each do |property| %>
-      <tr>
-        <td><%= property.title %></td>
-        <td><%= property.desctiption %></td>
-        <td><%= property.lat %></td>
-        <td><%= property.lng %></td>
-        <td><%= link_to 'Show', property %></td>
-        <td><%= link_to 'Edit', edit_property_path(property) %></td>
-        <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% @proprties_filtered.each do |property| %>
+      <div class="detbox">
+        <div class="det dettitle"><%= link_to property.title, property %></div>
+        <div class="det"><%= property.desctiption %></div>
+        <br>
+        <div class="det">Rent (Monthly) - PKR<%= property.price %></div>
+<!--         <td><%= link_to 'Edit', edit_property_path(property) %></td> -->
+<!--         <td><%= link_to 'Destroy', property, method: :delete, data: { confirm: 'Are you sure?' } %> --></div>
+        <br>
     <% end %>
-  </tbody>
-</table>
 
 <br>
-<div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
+<div class="mapp" style='width: 64%;'>
+  <div id="map" style='width: 100%; height: 800px;'></div>
 </div>
 
 <script>
 handler = Gmaps.build('Google');
 handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
   markers = handler.addMarkers([
-    <% @properties.each do |property| %>
+    <% @proprties_filtered.each do |property| %>
     {
-      "lat": <%= property.lat %>,
-      "lng": <%= property.lng %>,
+      "lat": <%= property.latitude %>,
+      "lng": <%= property.longitude %>,
 
     
       "infowindow": '<%= link_to property.title, property %>'
@@ -49,6 +34,7 @@ handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
   handler.fitMapToBounds();
 });
 </script>
-<%= link_to 'New Property', new_property_path %>
+<!-- 
+<%= link_to 'New Property', new_property_path %> -->
 
 

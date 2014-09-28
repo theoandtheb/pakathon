@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @campu.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @campu.address %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @campu.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @campu.longitude %>
+</p>
+
+<%= link_to 'Edit', edit_campu_path(@campu) %> |
+<%= link_to 'Back', campus_path %>

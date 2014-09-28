@@ -9,4 +9,6 @@ class User < ActiveRecord::Base
 
 	has_and_belongs_to_many :affiliations
 	has_many :properties
+	belongs_to :campu
+	belongs_to :institution
 end

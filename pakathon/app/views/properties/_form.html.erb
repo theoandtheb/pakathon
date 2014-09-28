@@ -19,14 +19,18 @@
     <%= f.label :desctiption %><br>
     <%= f.text_area :desctiption %>
   </div>
-  <div class="field">
-    <%= f.label :lat %><br>
-    <%= f.text_field :lat %>
+    <div class="field">
+    <%= f.label 'Rent (Monthly)' %><br>
+    <%= f.text_field :price %>
   </div>
   <div class="field">
-    <%= f.label :lng %><br>
-    <%= f.text_field :lng %>
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
   </div>
+  <div class="field">
+    <%= f.label :institution_id %> <br />
+    <%= f.collection_select :institution_id, Institution.all, :id, :name %>
+</div>
   <div class="actions">
     <%= f.submit %>
   </div>

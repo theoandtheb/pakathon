@@ -11,15 +11,12 @@
 </p>
 
 <p>
-  <strong>Lat:</strong>
-  <%= @property.lat %>
+  <strong>Rate (Monthly)</strong>
+  PKR<%= @property.price %>
 </p>
 
 <p>
-  <strong>Lng:</strong>
-  <%= @property.lng %>
-</p>
 
-
-<%= link_to 'Edit', edit_property_path(@property) %> |
+<!-- 
+<%= link_to 'Edit', edit_property_path(@property) %> | -->
 <%= link_to 'Back', properties_path %>

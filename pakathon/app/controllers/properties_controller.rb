@@ -5,6 +5,12 @@ class PropertiesController < ApplicationController
   # GET /properties.json
   def index
     @properties = Property.all
+    @proprties_filtered = []
+    @properties.each do |f|
+      if f.institution_id.to_i == current_user.institution_id.to_i
+        @proprties_filtered << f
+      end
+    end
   end
 
   # GET /properties/1
@@ -25,7 +31,7 @@ class PropertiesController < ApplicationController
   # POST /properties.json
   def create
     @property = Property.new(property_params)
-
+    @property.user_id = current_user.id
     respond_to do |format|
       if @property.save
         format.html { redirect_to @property, notice: 'Property was successfully created.' }
@@ -69,6 +75,6 @@ class PropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
-      params.require(:property).permit(:title, :desctiption, :lat, :lng)
+      params.require(:property).permit(:title, :desctiption, :address, :latitude, :longitude, :institution_id, :price)
     end
 end

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :campus
+
+  resources :institutions
+
   resources :affiliations
 
   resources :properties
@@ -14,6 +18,11 @@ resources :users
 
 get 'login' => 'user_sessions#new', :as => :login
 post 'logout' => 'user_sessions#destroy', :as => :logout
+
+namespace :dynamic_select do
+  get ':institution_id/campus', to: 'campus#index', as: 'campus'
+end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

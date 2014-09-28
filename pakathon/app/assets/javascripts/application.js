@@ -15,5 +15,7 @@
 //= require turbolinks
 //= require underscore
 //= require gmaps/google
+//= require dynamic_selectable
+//= require init
 //= require_tree .
 

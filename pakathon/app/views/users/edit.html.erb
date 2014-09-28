@@ -1,6 +1,73 @@
 <h1>Editing user</h1>
 
-<%= render 'form' %>
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="field">
+  <%= f.label :first_name %><br>
+  <%= f.text_field :first_name %>
+</div>
+<div class="field">
+  <%= f.label :last_name %><br>
+  <%= f.text_field :last_name %>
+</div>
+<div class="field">
+  <%= f.label :email %><br>
+  <%= f.text_field :email %>
+</div>
+<div class="field">
+  <%= f.label :password %><br>
+  <%= f.password_field :password %>
+</div>
+<div class="field">
+  <%= f.label :password_confirmation %><br>
+  <%= f.password_field :password_confirmation %>
+</div>
+<div class="field">
+  <%= f.label "National Identification Number" %><br>
+  <%= f.text_field :nid %>
+</div>
+<div class="field">
+    <%= f.label "I wish to rent" %> <br />
+    <%= f.check_box :is_asking %> <br />
+</div>
+<div class="field">
+    <%= f.label "I have space to rent" %> <br />
+    <%= f.check_box :is_offering %> <br />
+</div>
+<div class="field">
+    <%= f.label "I am an affiliate" %> <br />
+    <%= f.check_box :is_endorsing %> <br />
+</div>
+<div class="field">
+    <%= f.label "I am studying at" %> <br />
+    <%= f.collection_select :institution_id, Institution.all, :id, :name,
+      {include_blank: true},
+      { data: {
+          dynamic_selectable_url: dynamic_select_campus_path(':institution_id'),
+          dynamic_selectable_target: '#user_campu_id'
+        }
+      } 
+      %>
+</div>
+<div class="field">
+  <%= f.label :campu_id %><br>
+  <%= f.collection_select :campu_id, @user.institution.try(:campus) || [], :id, :name, :include_blank => true  %>
+</div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
 
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>
